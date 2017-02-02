@@ -8,11 +8,11 @@
 
 (define-condition-type <slack-parse-error> <error> #f)
 
-(define %user ($do [chars ($many ($one-of #[a-zA-Z0-9_-]))] ($return (list->string chars))))
+(define %user ($lift list->string ($many ($one-of #[a-zA-Z0-9_-]))))
 
-(define %ampm ($do [ampm ($or ($y "AM") ($y "PM"))] ($return ampm)))
+(define %ampm ($or ($y "AM") ($y "PM")))
 
-(define %hour ($do [chars ($many digit 1 2)] ($return (list->string chars))))
+(define %hour ($lift list->string ($many digit 1 2)))
 
 (define %minutes %hour)
 
